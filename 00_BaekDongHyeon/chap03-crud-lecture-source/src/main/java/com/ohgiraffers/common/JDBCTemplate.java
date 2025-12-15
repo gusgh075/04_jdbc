@@ -24,6 +24,12 @@ public class JDBCTemplate {
 
       con = DriverManager.getConnection(url, user, password);
 
+      // 자동 커밋 -> 수동 커밋으로 변경
+      // -> 개발자가 서비스에서 트랜잭션을 제어할 수 있도록 함
+      // + 수동 커밋 상태여도 중간에 commit을 하지 않으면
+      //   커넥션 close시 자동 commit 수행됨
+      con.setAutoCommit(false);
+      
     }catch (SQLException e){
       throw new RuntimeException(e);
     }catch (IOException e){
@@ -62,5 +68,23 @@ public class JDBCTemplate {
       throw new RuntimeException(e);
     }
   }
-  
+
+
+
+  public static void commit(Connection con){
+    try {
+      if(con != null && !con.isClosed()) con.commit();
+    }catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+
+  public static void rollback(Connection con){
+    try {
+      if(con != null && !con.isClosed()) con.rollback();
+    }catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+
 }

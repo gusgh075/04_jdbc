@@ -1,11 +1,12 @@
-package com.ohgiraffers.section01.statement;
+package com.ohgiraffers.section03.sqlinjection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static com.ohgiraffers.common.JDBCTemplate.*;
+import static com.ohgiraffers.common.JDBCTemplate.close;
+import static com.ohgiraffers.common.JDBCTemplate.getConnection;
 
 public class Application1 {
 
@@ -21,7 +22,13 @@ public class Application1 {
       /* Statement : 쿼리를 운반하고 결과를 반환하는 객체 */
       stmt = con.createStatement();
 
-      String sql = "select * from tbl_menu";
+      int menuCode = 16;
+      String menuName = "' or 1=1 and menu_code = '2";
+
+      String sql
+          = "select * from tbl_menu where menu_code = " + menuCode
+          + " and menu_name = '"+menuName+"' ";
+
 
       // executeQuery() : SELECT 수행 후 ResultSet 반환
       /* ResultSet : SELECT 결과를 다루는 객체(1행 씩)*/

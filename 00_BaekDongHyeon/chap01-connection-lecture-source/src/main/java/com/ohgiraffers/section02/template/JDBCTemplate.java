@@ -27,14 +27,26 @@ public class JDBCTemplate {
       con = DriverManager.getConnection(url, user, password);
 
     }catch (SQLException e){
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }catch (IOException e){
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
 
     return con;
   }
 
-
+  /**
+   * Connection을 닫는 메서드
+   * - 메모리 자원 반환
+   * - DBMS 연결된 커넥션 제거
+   * @param con
+   */
+  public static void close(Connection con){
+    try {
+      if(con != null && !con.isClosed()) con.close();
+    }catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
 
 }
