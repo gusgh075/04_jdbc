@@ -1,6 +1,4 @@
-package com.qew032.section03;
-
-import com.qew032.section02.update.Menu;
+package com.qew032.section03.delete;
 
 import java.io.FileInputStream;
 import java.sql.Connection;

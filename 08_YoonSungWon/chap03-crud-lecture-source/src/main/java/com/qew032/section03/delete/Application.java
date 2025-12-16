@@ -1,4 +1,4 @@
-package com.qew032.section03;
+package com.qew032.section03.delete;
 
 import java.util.Scanner;
 
